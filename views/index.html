@@ -57,8 +57,6 @@
       })
       .then(res => res.blob())
       .then(blob => {
-        console.log(document.querySelector('img').src)
-        console.log(URL.createObjectURL(blob))
         document.querySelector('img').src = URL.createObjectURL(blob);
       })
       .catch(e => {

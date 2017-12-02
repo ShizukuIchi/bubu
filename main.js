@@ -11,7 +11,8 @@ const getResult = (req, res) => {
   
   let url = 'http://twtraffic.tra.gov.tw/twrail/TW_Transfer.aspx'
 
-  puppeteer.launch().then(async (browser) => {
+  puppeteer.launch({args: ['--no-sandbox', '--disable-setuid-sandbox']})
+  .then(async (browser) => {
     const page = await browser.newPage();
     try{
       await page.goto(url)
