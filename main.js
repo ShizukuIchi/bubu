@@ -40,7 +40,7 @@ const getResult = (req, res) => {
         return {x,y,width,height}
       })
       await page.screenshot({
-        path: './result.jpg',
+        path: path.join(__dirname, './result.jpg'),
         clip: elementBoundings
       })
     } catch(e) {
