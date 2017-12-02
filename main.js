@@ -4,7 +4,7 @@ const path = require('path')
 const getResult = (req, res) => {
   const Minxiong = {city: '8', station: '1214'}
   const Tainan = {city: '9', station: '1228'}
-  
+
   const time = req.body.time
   let from = req.body.from === '民雄' ? Minxiong : Tainan
   let to = from === Minxiong ? Tainan : Minxiong
@@ -26,9 +26,7 @@ const getResult = (req, res) => {
       await page.select('#TransferStation', '1215')
       await page.select('#ToCity3', to.city)
       await page.select('#ToStation3', to.station)
-      console.log(time)
       await page.select('#FromTimeSelect3', time)
-      await page.screenshot({path:'./test.jpg'})
       const search = await page.$('#searchbtn3')
       await search.click()
       await page.waitForSelector('#resultcontent thead')
