@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>bubu~</title>
+  <script src=""></script>
+</head>
+<body>
+  <form onsubmit="login(event)">
+    from:
+    中正<input type="radio" name="from" id="minxiong" checked>
+    台南<input type="radio" name="from" id="tainan">
+    <br/>
+    time:
+    <select name="time" id="time">
+      <option value="0600">6點</option>
+      <option value="0700">7點</option>
+      <option value="0800">8點</option>
+      <option value="0900">9點</option>
+      <option value="1000">10點</option>
+      <option value="1100">11點</option>
+      <option value="1200">12點</option>
+      <option value="1300">13點</option>
+      <option value="1400">14點</option>
+      <option value="1500">15點</option>
+      <option value="1600">16點</option>
+      <option value="1700">17點</option>
+      <option value="1800">18點</option>
+      <option value="1900">19點</option>
+      <option value="2000">20點</option>
+      <option value="2100">21點</option>
+    </select>
+    <br/>
+    <input type="submit" id="sbumit">
+  </form>
+  <hr>
+  <div id="resultContainer">
+    <img src="" alt="hi">
+  </div>
+  <script>
+    function login(e) {
+      e.preventDefault()
+      let from = document.querySelector('input[name=from]').checked ? '民雄' : '台南'
+      let time = document.querySelector('#time').value
+      document.querySelector('img').alt = 'loading'
+      fetch("/getResult", {
+        headers:{
+          "Content-Type": "application/json"
+        },
+        method: "post",
+        body: JSON.stringify({
+          from,
+          time
+        })
+      })
+      .then(res => res.blob())
+      .then(blob => {
+        console.log(document.querySelector('img').src)
+        console.log(URL.createObjectURL(blob))
+        document.querySelector('img').src = URL.createObjectURL(blob);
+      })
+      .catch(e => {
+        console.log(e)
+      })
+    }
+  </script>
+</body>
+</html>
